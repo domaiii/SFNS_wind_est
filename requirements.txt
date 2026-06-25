@@ -1,0 +1,6 @@
+imageio>=2.31,<3
+jupyterlab
+matplotlib
+pandas
+pyyaml
+scipy
