@@ -1,6 +1,6 @@
 services:
   simulation:
-    container_name: dolfinx-sim
+    container_name: dolfinx-container
     build: .
     image: mydolfinx:v0.9 
     volumes:

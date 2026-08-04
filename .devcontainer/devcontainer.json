@@ -1,0 +1,14 @@
+{
+  "name": "DOLFINx",
+  "dockerComposeFile": "../compose.yml",
+  "service": "simulation",
+  "workspaceFolder": "/app",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-toolsai.jupyter"
+      ]
+    }
+  }
+}

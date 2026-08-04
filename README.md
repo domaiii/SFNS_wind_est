@@ -31,7 +31,7 @@ With VS Code, open the repository and run:
 Dev Containers: Reopen in Container
 ```
 
-The dev-container configuration lives in `.devcontainer/dolfinx0.9/` and uses
+The dev-container configuration lives in `.devcontainer` and uses
 the repository `compose.yml`/`Dockerfile`.
 
 Alternatively, build and start the container from a terminal:
