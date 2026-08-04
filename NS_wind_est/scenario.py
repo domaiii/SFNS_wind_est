@@ -15,7 +15,9 @@ def _optional_path(root: Path, value: str | None) -> Path | None:
 def _required_path(root: Path, values: dict, fallback: dict, key: str) -> Path:
     value = values.get(key)
     if value is None:
-        value = fallback[key]
+        value = fallback.get(key)
+    if value is None:
+        raise ValueError(f"Missing required scenario path: {key}.")
     return (root / value).resolve()
 
 @dataclass(frozen=True)
@@ -58,6 +60,9 @@ class ScenarioConfig:
         with scenario.open("r", encoding="utf-8") as f:
             raw = yaml.safe_load(f)
 
+        if not isinstance(raw, dict):
+            raise ValueError("Scenario YAML must contain a mapping at the top level.")
+
         root = scenario.parent
         info = raw.get("meta", {})
         geometry = raw.get("geometry", {})
@@ -75,7 +80,7 @@ class ScenarioConfig:
         return cls(
             name=str(info.get("name", raw.get("name", root.name))),
             root=root,
-            mesh=_optional_path(root, paths.get("mesh", geometry.get("mesh"))),
+            mesh=_required_path(root, paths, geometry, "mesh"),
             wall_pattern=str(geometry.get("wall_pattern", cls.wall_pattern)),
             outflow_pattern=str(geometry.get("outflow_pattern", cls.outflow_pattern)),
             wind_csv=_optional_path(root, paths.get("wind_csv", data.get("wind_csv"))),
