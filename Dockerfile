@@ -1,10 +1,12 @@
-FROM dolfinx/dolfinx:v0.9.0 
+FROM dolfinx/dolfinx:v0.9.0
 
 WORKDIR /app
 
-USER root
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
     libgl1 \
     libxrender1 \
     libxext6 \
@@ -16,7 +18,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
-CMD ["bash"]
 EXPOSE 8888
 
 CMD ["jupyter", "lab", "--ip=0.0.0.0", "--port=8888", "--no-browser", "--allow-root"]

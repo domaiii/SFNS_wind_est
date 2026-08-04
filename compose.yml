@@ -1,11 +1,10 @@
 services:
   simulation:
-    container_name: dolfinx-container
     build: .
-    image: mydolfinx:v0.9 
+    image: ns-wind-est:dev
     volumes:
-        - .:/app
+      - .:/app
     working_dir: /app
-    tty: true            
-    stdin_open: true    
+    tty: true
+    stdin_open: true
     command: jupyter lab --ip=0.0.0.0 --port=8888 --no-browser --allow-root
